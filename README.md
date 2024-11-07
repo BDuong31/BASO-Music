@@ -2,8 +2,10 @@
 ## Installation Guide
 **On Windows:**
 cd /c/xampp/htdocs
+
 **On MacOS :**
 cd /Applications/XAMPP/htdocs
+
 **Clone the project :**
 git clone https://github.com/BDuong31/BASO-Music.git
 
