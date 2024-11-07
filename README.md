@@ -4,7 +4,7 @@
 cd /c/xampp/htdocs
 **On MacOS :**
 cd /Applications/XAMPP/htdocs
-**Clone the project**
+**Clone the project :**
 git clone https://github.com/BDuong31/BASO-Music.git
 
 ## Install Dependencies
@@ -15,11 +15,11 @@ composer install
 cp .env.example .env
 
 ## Set Up Database and Run Migrations
-**Run migrations**
+**Run migrations:**
 php artisan migrate
-**Seed sample data into the database**
+**Seed sample data into the database:**
 php artisan db:seed
-**Drop and re-run migrations with seeding**
+**Drop and re-run migrations with seeding:**
 php artisan migrate:fresh --seed
 
 ## Run the Project
