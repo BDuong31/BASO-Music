@@ -1,1 +1,9 @@
-# BASO-Music Git Ignore File
+# Composer
+/vendor/
+/composer.lock
+
+# Environment
+.env
+.env.local
+.env.*.local
+
