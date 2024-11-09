@@ -1,0 +1,284 @@
+body {
+   margin: 0;
+   min-height: 100vh;
+   background-image: 
+   url(../images/background.png),
+   repeating-radial-gradient(
+      circle at center left,
+      transparent 0,
+      #233656 100px
+    ),
+    repeating-linear-gradient(#1e2a3e55, #1e2a3e);
+   background-position: center;
+   background-repeat: no-repeat;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.container{
+   display:flex;
+   flex-direction: column;
+   font-family: Arial, Helvetica, sans-serif;
+   overflow-x: hidden;
+}
+.theme_resigter{
+   flex: 3 1  0%;
+   display: flex;
+   justify-content: center;
+   padding: 32px;
+   background: rgba(0, 0, 0, 0.7);
+   border-radius: 20px;
+}
+@media (max-width: 767px) {
+   .theme_login {
+       background: #121212;
+   }
+}
+.container_resigter{
+   max-width: 734px;
+   width: 100%;
+}
+.box{
+   background-color: none;
+   color: white;
+   row-gap: normal;
+   border-radius: 8px;
+   padding-bottom: 32;
+   display: flex;
+   flex-direction: column;
+}
+.logo{
+   border-bottom: none;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   width: 56px;
+   text-align: left;
+   margin: auto;
+   margin-top: 8px;
+   margin-bottom: 8px;
+   border-radius: 50px;
+}
+.resigter_text {
+   text-align: center;
+   margin-top: 0px;
+   margin-bottom: 32px;
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+hr{
+   margin: 32px 100px;
+   border-right: none;
+   border-bottom: none;
+   border-left: none;
+   border-image: initial;
+   border-top: 1px solid rgb(41, 41, 41);
+}
+.resiger_form{
+   width: 324px;
+   margin: 0px auto;
+   padding-bottom: 0px;
+}
+.resigter{
+   padding-bottom: 16px;
+}
+.text_resgiter{
+   box-sizing: border-box;
+   font-size: 14px;
+   margin: 0px;
+   font-weight: 700;
+   font-family: sans-serif;
+   -webkit-box-align: center;
+   align-items: center;
+   display: flex;
+   inline-size: 100%;
+   padding-block-end: 8px;
+}
+.container_password{
+   position: relative;
+   width: 100%;
+}
+.resigter_input{
+   appearance: none;
+   background-image: none;
+   border: 0px;
+   display: block;
+   font-size: 1rem;
+   font-weight: 400;
+   font-family: sans-serif;
+   transition: box-shadow 0.1s ease-in-out 0s, color 0.1s ease-in-out 0s;
+   inline-size: 100%;
+   box-sizing: border-box;
+   margin-block: 0px;
+   border-radius: 4px;
+   padding-inline-start: 16px;
+   padding-inline-end: 16px;
+   padding-block-start: 12px;
+   padding-block-end: 12px;
+   min-block-size: 48px;
+   background-color: transparent;
+   box-shadow: inset 0 0 0 1px #b3b3b3;
+   color: #ffffff;
+}
+.resigter_input:hover{
+   box-shadow: inset 0 0 0 1px #ffffff;
+}
+.login_input:focus{
+   box-shadow: inset 0 0 0 1px #ffffff;
+   border-color: #ffffff;
+   outline: 2px solid #ffffff;
+}
+.show_hide_container{
+   position: absolute;
+   top: 50%;
+   transform: translateY(-50%);
+   display: flex;
+   color: #b3b3b3;
+   right: 12px;
+}
+.show_hide_button{
+   box-sizing: border-box;
+   -webkit-tap-highlight-color: transparent;
+   background-color: transparent;
+   border: 0px;
+   border-radius: var(--encore-button-corner-radius, 9999px);
+   cursor: pointer;
+   text-align: center;
+   text-decoration: none;
+   text-transform: none;
+   touch-action: manipulation;
+   transition-duration: 33ms;
+   transition-property: background-color, border-color, color, box-shadow, filter, transform;
+   user-select: none;
+   vertical-align: middle;
+   transform: translate3d(0px, 0px, 0px);
+   color: var(--text-subdued, #656565);
+   min-inline-size: 0px;
+   min-block-size: var(--encore-control-size-base, 48px);
+   padding-block-start: var(--encore-spacing-tighter, 12px);
+   padding-block-end: var(--encore-spacing-tighter, 12px);
+   padding-inline: 0px;
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+}
+.show_hide_button::after{
+   content: "";
+   display: block;
+   position: absolute;
+   pointer-events: none;
+   transition: border-color 200ms ease-in;
+   box-sizing: border-box;
+   bottom: 5px;
+   border-bottom: 3px solid transparent;
+   width: 100%;
+   inline-size: 24px;
+}
+.toogler{
+   width: 24px;
+}
+.show_hide_button:hover::after{
+   border-bottom-color: #b3b3b3;
+}
+.show_hide_button:focus-visible::after{
+   border-bottom-color: #b3b3b3;
+}
+.show_hide_button span{
+   display: flex;
+}
+.show_password_icon{
+   background: url('/public/svg/show_eye.svg');
+   width: 24px;
+   height: 24px;
+}
+.hide_password_icon{
+   background: url('/public/svg/hide_eye.svg');
+   width: 24px;
+   height: 24px;
+}
+.button_resiger{
+   text-align: center;
+   padding: 24px 0px 32px 0px;
+}
+.button_resigter  button{
+   width: 100%;
+   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: sans-serif;
+  background-color: transparent;
+  border: 0px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  touch-action: manipulation;
+  transition-duration: 33ms;
+  user-select: none;
+  vertical-align: middle;
+  transform: translate3d(0px, 0px, 0px);
+  padding: 0px;
+  min-inline-size: 0px;
+  align-self: center;
+}
+
+.button_inner{
+   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  background-color: #1e2a3e;
+  color: white;
+  display: flex;
+  border-radius: 9999px;
+  font-size: inherit;
+  min-block-size: 48px;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  padding-block-start: 8px;
+  padding-block-end: 8px;
+  padding-inline-start: 32px;
+  padding-inline-end: 32px;
+}
+.button_inner:hover{
+   outline: 5px solid #1e2a3e;
+}
+
+.sign_up_section{
+   padding: 16px 0px;
+
+}
+.sign_up_section h2{
+   text-align: center;
+}
+.sign_up_section h2 span{
+   margin-block: 0px;
+   color: #a7a7a7;
+   font-size: 1rem;
+   font-family: sans-serif;
+   font-weight: 400;
+}
+.sign_up_section a{
+   box-sizing: border-box;
+   -webkit-tap-highlight-color: transparent;
+   color: inherit;
+   -webkit-box-align: center;
+   align-items: center;
+}
+.sign_up_section a:hover{
+   color: #1e2a3e;
+}
+.sign_up_section a span{
+   margin-left: 8px;
+   margin-block: 0px;
+   color: inherit;
+}
+.sign_up_section a span:hover {
+  color: #1e2a3e;
+}
