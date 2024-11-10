@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập - Spotify</title>
+    <title>Đăng nhập - BASO Music</title>
     <link rel="icon" href="/public/images/logo.jpg">
     <link rel="stylesheet" href="/public/css/login.css">
 </head>
