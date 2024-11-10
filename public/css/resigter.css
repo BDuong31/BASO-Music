@@ -74,7 +74,7 @@ hr{
    border-image: initial;
    border-top: 1px solid rgb(41, 41, 41);
 }
-.resiger_form{
+.resigter_form{
    width: 324px;
    margin: 0px auto;
    padding-bottom: 0px;
@@ -282,3 +282,4 @@ hr{
 .sign_up_section a span:hover {
   color: #1e2a3e;
 }
+
