@@ -83,7 +83,7 @@
                                                     min-block-size: unset;
                                                     text-align: start;
                                                     overflow-wrap: break-word;
-                                                    min-block-size:"    
+                                                    min-block-size: 48px"    
                                         >
                                             <option disabled value>Tháng</option>
                                             <option value="1">Tháng 1</option>
@@ -134,7 +134,7 @@
                                                     min-block-size: unset;
                                                     text-align: start;
                                                     overflow-wrap: break-word;
-                                                    min-block-size:"    
+                                                    min-block-size: 48px"    
                                         >
                                             <option disabled value>Giới tính</option>
                                             <option value="1">Nam</option>
