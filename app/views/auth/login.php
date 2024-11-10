@@ -63,7 +63,7 @@
                         <div class="sign_up_section">
                             <h2>
                                 <span>Bạn chưa có tài khoản?</span>
-                                <a href="signup.html">
+                                <a href="resigter.php">
                                     <span>Đăng ký BASO Music</span>
                                 </a>
                             </h2>
