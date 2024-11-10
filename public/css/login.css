@@ -2,13 +2,8 @@ body {
    margin: 0;
    min-height: 100vh;
    background-image: 
-   url(../images/background.png),
-   repeating-radial-gradient(
-      circle at center left,
-      transparent 0,
-      #233656 100px
-    ),
-    repeating-linear-gradient(#1e2a3e55, #1e2a3e);
+   url(../images/background-2.jpg);
+   background-size: cover;
    background-position: center;
    background-repeat: no-repeat;
    display: flex;
