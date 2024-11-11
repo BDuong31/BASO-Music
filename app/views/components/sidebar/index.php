@@ -16,8 +16,9 @@ $token = 'YOUR_SPOTIFY_ACCESS_TOKEN';
 ?>
         <div class="sidebar-container">
             <!-- Hiển thị ảnh đại diện -->
-            <img src="<?php echo $dataImage; ?>" class="profile-img" alt="profile" />
-
+            <a id="account" href="home.php?page=account">
+                <img role="account" src="<?php echo $dataImage; ?>" class="profile-img" alt="profile" />
+            </a>
             <!-- Các nút sidebar -->
             <div>
                 <?php

@@ -85,7 +85,7 @@
                                                     overflow-wrap: break-word;
                                                     min-block-size: 48px"    
                                         >
-                                            <option disabled value>Tháng</option>
+                                            <option selected disabled value>Tháng</options>
                                             <option value="1">Tháng 1</option>
                                             <option value="2">Tháng 2</option>
                                             <option value="3">Tháng 3</option>
@@ -136,7 +136,7 @@
                                                     overflow-wrap: break-word;
                                                     min-block-size: 48px"    
                                         >
-                                            <option disabled value>Giới tính</option>
+                                            <option selected disabled value>Giới tính</option>
                                             <option value="1">Nam</option>
                                             <option value="2">Nữ</option>
                                         </select>
@@ -182,7 +182,7 @@
     //show and hide password
     var togglerPassword = document.getElementById('toggler');
     console.log(togglerPassword);
-    var passwordInput = document.getElementById('login-password');
+    var passwordInput = document.getElementById('resigter-password');
 
     togglerPassword.addEventListener('click', () => {
         if (passwordInput.type === 'password') {
@@ -197,5 +197,4 @@
     })
     </script>
 </body>
-
 </html>

@@ -2,13 +2,8 @@ body {
    margin: 0;
    min-height: 100vh;
    background-image: 
-   url(../images/background.png),
-   repeating-radial-gradient(
-      circle at center left,
-      transparent 0,
-      #233656 100px
-    ),
-    repeating-linear-gradient(#1e2a3e55, #1e2a3e);
+   url(../images/background-2.jpg);
+   background-size: cover;
    background-position: center;
    background-repeat: no-repeat;
    display: flex;
@@ -40,7 +35,7 @@ body {
 }
 .box{
    background-color: none;
-   color: white;
+   color: #c4d0e3;
    row-gap: normal;
    border-radius: 8px;
    padding-bottom: 32;
@@ -117,23 +112,23 @@ hr{
    padding-block-end: 12px;
    min-block-size: 48px;
    background-color: transparent;
-   box-shadow: inset 0 0 0 1px #b3b3b3;
-   color: #ffffff;
+   box-shadow: inset 0 0 0 1px #c4d0e3;
+   color: #c4d0e3;
 }
 .resigter_input:hover{
-   box-shadow: inset 0 0 0 1px #ffffff;
+   box-shadow: inset 0 0 0 1px #c4d0e3;
 }
 .login_input:focus{
-   box-shadow: inset 0 0 0 1px #ffffff;
-   border-color: #ffffff;
-   outline: 2px solid #ffffff;
+   box-shadow: inset 0 0 0 1px #c4d0e3;
+   border-color: #c4d0e3;
+   outline: 2px solid #c4d0e3;
 }
 .show_hide_container{
    position: absolute;
    top: 50%;
    transform: translateY(-50%);
    display: flex;
-   color: #b3b3b3;
+   color: #c4d0e3;
    right: 12px;
 }
 .show_hide_button{
@@ -152,7 +147,7 @@ hr{
    user-select: none;
    vertical-align: middle;
    transform: translate3d(0px, 0px, 0px);
-   color: var(--text-subdued, #656565);
+   color: var(--text-subdued, #c4d0e3);
    min-inline-size: 0px;
    min-block-size: var(--encore-control-size-base, 48px);
    padding-block-start: var(--encore-spacing-tighter, 12px);
@@ -179,10 +174,10 @@ hr{
    width: 24px;
 }
 .show_hide_button:hover::after{
-   border-bottom-color: #b3b3b3;
+   border-bottom-color: #c4d0e3;
 }
 .show_hide_button:focus-visible::after{
-   border-bottom-color: #b3b3b3;
+   border-bottom-color: #c4d0e3;
 }
 .show_hide_button span{
    display: flex;
@@ -232,7 +227,7 @@ hr{
   -webkit-tap-highlight-color: transparent;
   position: relative;
   background-color: #1e2a3e;
-  color: white;
+  color: #c4d0e3;
   display: flex;
   border-radius: 9999px;
   font-size: inherit;
@@ -259,7 +254,7 @@ hr{
 }
 .sign_up_section h2 span{
    margin-block: 0px;
-   color: #a7a7a7;
+   color: #c4d0e3;
    font-size: 1rem;
    font-family: sans-serif;
    font-weight: 400;

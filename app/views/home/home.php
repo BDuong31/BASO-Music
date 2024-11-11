@@ -42,6 +42,9 @@ $page = $_GET['page'] ?? 'library';
                 case 'library':
                     include('../library/library.php');
                     break;
+                case 'account':
+                    include('../account/profile.php');
+                    break;
                 default:
             }
         ?>
