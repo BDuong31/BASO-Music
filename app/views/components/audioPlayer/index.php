@@ -63,8 +63,4 @@ function renderAudioPlayer($currentTrack, $currentIndex, $total) {
             audio.addEventListener('ended', nextTrack);
         });
     </script>
-    <?php
-}
-
-
-?>
+<?php } ?>

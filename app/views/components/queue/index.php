@@ -10,10 +10,7 @@ function renderQueue(array $tracks) { ?>
                 foreach ($tracks as $index => $track) {
                     $trackName = $track['track']['name'] ?? 'Unknown Track';
                     ?>
-                    <div 
-                        class="queue-item flex"
-                        onclick="setCurrentIndex(<?php echo $index; ?>)"
-                    >
+                    <div class="queue-item flex" onclick="setCurrentIndex(<?php echo $index; ?>)">
                         <p class="track-name"><?php echo htmlspecialchars($trackName); ?></p>
                         <p>0:30</p>
                     </div>
