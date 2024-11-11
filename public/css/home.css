@@ -5,13 +5,12 @@
     border-radius: 30px;
     background-color: #1e2a3e;
     opacity: 1;
-    /* background-image: repeating-radial-gradient(
+    background-image: repeating-radial-gradient(
         circle at center left,
         transparent 0,
         #233656 100px
       ),
-      repeating-linear-gradient(#1e2a3e55, #1e2a3e); */
-    background-image: url('/public/images/background-4.png');
+      repeating-linear-gradient(#1e2a3e55, #1e2a3e);
     background-size: cover;
   }
   body {
@@ -626,7 +625,7 @@ a {
   background: rgb(30, 42, 62);
   background: linear-gradient(
     75deg,
-    rgb(40, 58, 88) 100%,
+    rgb(40, 58, 88) 0%,
     rgba(54, 69, 98, 0) 100%
   );
   transition: all 0.2s ease;
@@ -837,12 +836,12 @@ a {
   padding: 30px;
   border-radius: 20px;
   margin-bottom: 16px;
+  background-color: rgb(30, 42, 62);
   background: linear-gradient(
     75deg,
     rgb(40, 58, 88) 100%,
     rgba(54, 69, 98, 0) 100%
   );
-  background-color: rgb(30, 42, 62);
   border: 1px solid rgba(54, 69, 98, 0.18);
 }
 

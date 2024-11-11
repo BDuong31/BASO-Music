@@ -30,6 +30,6 @@ $token = 'YOUR_SPOTIFY_ACCESS_TOKEN';
             </div>
             
             <!-- Nút Sign Out -->
-            <?php renderSidebarButton('Sign Out', 'btn-icon-logout', '#'); ?>
+            <?php renderSidebarButton('Sign Out', 'btn-icon-logout', 'http://basomusic.local/app/views/auth/signout.php'); ?>
         </div>
 <?php } ?>

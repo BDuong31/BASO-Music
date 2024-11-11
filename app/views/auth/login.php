@@ -1,4 +1,18 @@
-<?php declare(strict_types=1); ?>
+<?php declare(strict_types=1); 
+session_start();
+include_once '../../controllers/AuthController.php';
+$authController = new AuthController();
+$data = json_decode(file_get_contents("php://input"), true) ?? $_POST;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $response  = $authController->login($data);
+    if ($response['status'] === '00') {
+        $_SESSION['user_id'] = $response['data']['id'];
+        header('location: /app/views/home/home.php');
+        exit();
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,14 +33,14 @@
                         <img class="logo" src="/public/images/logo.jpg" alt="logo">
                         <h1 class="login_text">Đăng nhập vào BASO Music</h1>
                     </header>
-                    <form class="login_form">
+                    <form method="post" action="" class="login_form">
                         <div class="login">
                             <div class="text_login">
                                 <label for="login-username">
                                     <span>Email hoặc tên người dùng</span>
                                 </label>
                             </div>
-                            <input class="login_input" id="login-username" placeholder="Email hoặc tên người dùng"
+                            <input name="identifier" class="login_input" id="login-username" placeholder="Email hoặc tên người dùng"
                                 type="text">
                         </div>
                         <div class="login">
@@ -36,7 +50,7 @@
                                 </label>
                             </div>
                             <div class="container_password">
-                                <input class="login_input" id="login-password" placeholder="Mật khẩu" type="password">
+                                <input name="password" class="login_input" id="login-password" placeholder="Mật khẩu" type="password">
                                 <div class="show_hide_container">
                                     <div class="show_hide_button">
                                         <span>
@@ -46,6 +60,12 @@
                                 </div>
                             </div>
                         </div>
+                        <?php
+                            if (isset($response)){
+                                     echo '<p style="color: red;">'.$response['message'].'</p>';
+
+                            }
+                        ?>
                         <div class="button_login">
                             <button>
                                 <span class="button_inner">

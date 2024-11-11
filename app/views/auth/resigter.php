@@ -1,4 +1,28 @@
-<?php declare(strict_types=1); ?>
+<?php declare(strict_types=1); 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+include_once '../../controllers/AuthController.php';
+$authController = new AuthController();
+$data = json_decode(file_get_contents("php://input"), true) ?? $_POST;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = [
+        'username' => $data['username']?? '',
+        'password' => $data['password']?? '',
+        'email' => $data['email']?? '',
+        'birthday' => sprintf('%04d-%02d-%02d', $data['year'], $data['month'], $data['day'] ?? ''),
+        'fullname' => $data['fullname']?? '',
+        'sex' => $data['gender']  == 1 ?  'male' : 'female' ?? ''
+    ];
+    // Gọi phương thức register từ AuthController
+    $response = $authController->register($data);
+    if ($response['status'] === '00') {
+    header('location: login.php');
+    exit();
+    }
+}
+error_reporting(E_ALL);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,14 +43,14 @@
                         <img class="logo" src="/public/images/logo.jpg" alt="logo">
                         <h1 class="resigter_text">Đăng ký để bắt đầu nghe</h1>
                     </header>
-                    <form class="resigter_form">
+                    <form method="post" class="resigter_form">
                         <div class="resigter">
                             <div class="resigter_login">
                                 <label for="resigter-username">
                                     <span>Tên đăng nhập</span>
                                 </label>
                             </div>
-                            <input class="resigter_input" id="resigter-username" placeholder="Tên Đăng nhập"
+                            <input name="username" class="resigter_input" id="resigter-username" placeholder="Tên Đăng nhập"
                                 type="text">
                         </div>
                         <div class="resigter">
@@ -35,7 +59,7 @@
                                     <span>Email</span>
                                 </label>
                             </div>
-                            <input class="resigter_input" id="resigter-mail" placeholder="Email"
+                            <input name="email" class="resigter_input" id="resigter-mail" placeholder="Email"
                                 type="text">
                         </div>
                         <div class="resigter">
@@ -45,7 +69,7 @@
                                 </label>
                             </div>
                             <div class="container_password">
-                                <input class="resigter_input" id="resigter-password" placeholder="Mật khẩu" type="password">
+                                <input name="password" class="resigter_input" id="resigter-password" placeholder="Mật khẩu" type="password">
                                 <div class="show_hide_container">
                                     <div class="show_hide_button">
                                         <span>
@@ -61,7 +85,7 @@
                                     <span>Họ tên</span>
                                 </label>
                             </div>
-                            <input class="resigter_input" id="resigter-name" placeholder="Họ tên"
+                            <input name="fullname" class="resigter_input" id="resigter-name" placeholder="Họ tên"
                                 type="text">
                         </div>
                         <div class="resigter">
@@ -156,6 +180,13 @@
                                 </div>
                             </div>
                         </div>
+                        <?php
+                        if (isset($response)){
+                             if (!$response['status'] == 00 ){
+                                 echo '<p style="color: red;">'.$response['message'].'</p>';
+                             }
+                        }
+                        ?>
                         <div class="button_resigter">
                             <button>
                                 <span class="button_inner">
