@@ -19,13 +19,15 @@ class AuthController {
             $data['fullname'],
             $data['sex']
         );
+        echo json_encode($response);
         return $response;
     }
 
     // API đăng nhập người dùng
     public function login($data) {
         $response = $this->userService->login($data['identifier'], $data['password']);
-        return ($response);
+        echo json_encode($response);
+        return $response;
     }
 
     // API cập nhật hồ sơ người dùng
@@ -37,6 +39,7 @@ class AuthController {
             $data['profile_picture'] ?? null
         );
         echo json_encode($response);
+        return $response;
     }
 }
 ?>

@@ -1,0 +1,24 @@
+Options -Indexes
+RewriteEngine On
+RewriteBase /
+
+# Chuy·ªÉn h∆∞·ªõng /api/login v√† /api/register t·ªõi api.php
+RewriteRule ^api/login$ config/api.php?action=login [L]
+RewriteRule ^api/register$ config/api.php?action=register [L]
+
+# URL c√°c c√°c page
+RewriteRule ^login$ app/views/auth/login.php [L]
+RewriteRule ^register$ app/views/auth/register.php [L]
+RewriteRule ^logout$ app/views/auth/logout.php [L]
+
+# URL c·c trang chÌnh
+RewriteRule ^home$ app/views/home/home.php?page=library [L]
+
+# Chuy?n h??ng c·c ph?n kh·c nhau c?a trang home
+RewriteRule ^home/account$ app/views/home/home.php?page=account [L]
+RewriteRule ^home/player$ app/views/home/home.php?page=player [L]
+RewriteRule ^home/trending$ app/views/home/home.php?page=trending [L]
+RewriteRule ^home/favorites$ app/views/home/home.php?page=favorites [L]
+RewriteRule ^home/library$ app/views/home/home.php?page=library [L]
+
+

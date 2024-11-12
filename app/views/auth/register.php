@@ -1,27 +1,4 @@
 <?php declare(strict_types=1); 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-include_once '../../controllers/AuthController.php';
-$authController = new AuthController();
-$data = json_decode(file_get_contents("php://input"), true) ?? $_POST;
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = [
-        'username' => $data['username']?? '',
-        'password' => $data['password']?? '',
-        'email' => $data['email']?? '',
-        'birthday' => sprintf('%04d-%02d-%02d', $data['year'], $data['month'], $data['day'] ?? ''),
-        'fullname' => $data['fullname']?? '',
-        'sex' => $data['gender']  == 1 ?  'male' : 'female' ?? ''
-    ];
-    // Gọi phương thức register từ AuthController
-    $response = $authController->register($data);
-    if ($response['status'] === '00') {
-    header('location: login.php');
-    exit();
-    }
-}
-error_reporting(E_ALL);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +20,7 @@ error_reporting(E_ALL);
                         <img class="logo" src="/public/images/logo.jpg" alt="logo">
                         <h1 class="resigter_text">Đăng ký để bắt đầu nghe</h1>
                     </header>
-                    <form method="post" class="resigter_form">
+                    <form method="post" class="resigter_form" onsubmit="register(event)">
                         <div class="resigter">
                             <div class="resigter_login">
                                 <label for="resigter-username">
@@ -180,15 +157,9 @@ error_reporting(E_ALL);
                                 </div>
                             </div>
                         </div>
-                        <?php
-                        if (isset($response)){
-                             if (!$response['status'] == 00 ){
-                                 echo '<p style="color: red;">'.$response['message'].'</p>';
-                             }
-                        }
-                        ?>
+                        <p id="result" style="color: red;"></p>
                         <div class="button_resigter">
-                            <button>
+                            <button type="submit">
                                 <span class="button_inner">
                                     <span>Đăng ký</span>
                                 </span>
@@ -199,7 +170,7 @@ error_reporting(E_ALL);
                         <div class="sign_up_section">
                             <h2>
                                 <span>Bạn đã có tài khoản?</span>
-                                <a href="login.php">
+                                <a href="login">
                                     <span>Đăng nhập BASO Music</span>
                                 </a>
                             </h2>
@@ -226,6 +197,70 @@ error_reporting(E_ALL);
             togglerPassword.classList.remove("show_password_icon");
         }
     })
+    function register(e) {
+        // Ngăn chặn form gửi yêu cầu mặc định
+        e.preventDefault();
+
+        // Lấy giá trị từ các input
+        const username = document.getElementById('resigter-username').value.trim();
+        const password = document.getElementById('resigter-password').value.trim();
+        const email = document.getElementById('resigter-mail').value.trim();
+        const day = document.getElementById('day').value.trim();
+        const month = document.getElementById('month').value.trim();
+        const year = document.getElementById('year').value.trim();
+        const fullname = document.getElementById('resigter-name').value.trim();
+        const gender = document.getElementById('gender').value;
+
+        // Định dạng ngày sinh
+        const birthday = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+
+        // Kiểm tra nếu thiếu thông tin
+        if (!username || !password || !email || !fullname || !day || !month || !year || !gender) {
+            showResult('Vui lòng điền đầy đủ thông tin!', 'red');
+            return;
+        }
+
+        // Dữ liệu gửi đi
+        const data = {
+            username: username,
+            password: password,
+            email: email,
+            birthday: birthday,
+            fullname: fullname,
+            gender: gender
+        };
+
+        // Gửi yêu cầu tới API
+        fetch('api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            // Kiểm tra phản hồi từ API
+            if (result.status === '00') {
+                    window.location.href = 'login';
+            } else {
+                showResult(result.message || 'Đăng ký thất bại', 'red');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showResult('Lỗi kết nối. Vui lòng thử lại sau!', 'red');
+        });
+    }
+
+    // Hàm hiển thị thông báo trong phần tử <p id="result">
+    function showResult(message, color) {
+        const resultElement = document.getElementById('result');
+        resultElement.textContent = message;
+        resultElement.style.color = color;
+        resultElement.style.display = 'block';
+    }
+
     </script>
 </body>
 </html>
