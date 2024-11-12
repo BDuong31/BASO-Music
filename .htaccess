@@ -2,6 +2,10 @@ Options -Indexes
 RewriteEngine On
 RewriteBase /
 
+#URL SPOTIFY API
+RewriteRule ^spotify$ app/services/SpotifyService.php [L]
+RewriteRule ^callback$ app/services/callback.php [L]
+
 # Chuyển hướng /api/login và /api/register tới api.php
 RewriteRule ^api/login$ config/api.php?action=login [L]
 RewriteRule ^api/register$ config/api.php?action=register [L]

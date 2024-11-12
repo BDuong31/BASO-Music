@@ -1,23 +1,12 @@
 <?php declare(strict_types=1); 
 require_once('sidebarButton.php');
-$token = 'YOUR_SPOTIFY_ACCESS_TOKEN';
 ?>
 <?php function renderSideBar($token){
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "https://api.spotify.com/v1/me");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Authorization: Bearer $token"
-    ]);
-    $response = curl_exec($ch);
-    curl_close($ch);
-    $data = json_decode($response, true);
-    $dataImage = $data['images'][0]['url'] ?? 'https://via.placeholder.com/150'; 
 ?>
         <div class="sidebar-container">
             <!-- Hiển thị ảnh đại diện -->
             <a id="account" href="/home/account">
-                <img role="account" src="<?php echo $dataImage; ?>" class="profile-img" alt="profile" />
+                <img role="account" src="https://via.placeholder.com/150" class="profile-img" alt="profile" />
             </a>
             <!-- Các nút sidebar -->
             <div>
