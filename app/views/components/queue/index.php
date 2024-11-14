@@ -24,7 +24,7 @@ function renderQueue($tracks) { ?>
                     <div class="queue-item flex" onclick="setCurrentIndex(<?php echo $index; ?>)">
                         <img src="<?php echo htmlspecialchars($trackImage); ?>" width="24px">
                         <p class="track-name"><?php echo htmlspecialchars($trackName); ?></p>
-                        <p class="track-duration"><?php echo htmlspecialchars(convertDuration($trackDuration)); ?></p>
+                        <p class="track-duration"><?php echo htmlspecialchars($trackDuration == '' ? '' : convertDuration($trackDuration)); ?></p>
                     </div>
                 <?php } ?>
             </div>

@@ -896,6 +896,26 @@ class SpotifyWebAPI
         return $this->lastResponse['body'];
     }
 
+    public function getRecommendedTracks(string $trackId): array|object
+    {
+        $trackId = $this->uriToId($trackId, 'track');
+        $options = [
+            'seed_tracks' => $trackId,
+            'limit' => 10, // Lấy tối đa 5 bài hát gợi ý
+        ];
+        array_walk($options, function (&$value, $key) {
+            if (substr($key, 0, 5) == 'seed_') {
+                $value = $this->toCommaString($value);
+            }
+        });
+
+        $uri = '/v1/recommendations';
+
+        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+
+        return $this->lastResponse['body'];
+    }
+
     public function getRequest(): Request
     {
         return $this->request;

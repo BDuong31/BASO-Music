@@ -144,45 +144,28 @@ class SpotifyService
 {
     try {
         // Giả sử chúng ta lấy 50 bài hát phổ biến hoặc mới nhất
-        $newReleases = $this->api->getNewReleases(['limit' => 50]);
+        $recommendedTracks = $this->api->getRecommendedTracks($currentTrackId);
 
         $tracks = [];
-        foreach ($newReleases->albums->items as $album) {
-            // Lấy danh sách bài hát từ album hiện tại
-            $albumTracks = $this->api->getAlbumTracks($album->id, ['limit' => 10]);
-
-            foreach ($albumTracks->items as $track) {
-                // Lấy thông tin chi tiết của từng bài hát
-                $trackDetails = $this->api->getTrack($track->id);
-
-                // Kiểm tra và lấy hình ảnh từ bài hát (thay vì album)
-                $imageUrl = isset($trackDetails->album->images[0]->url) ? $trackDetails->album->images[0]->url : '/public/images/default.jpg';
-
-                // Chuyển đổi thời gian từ ms sang định dạng phút:giây
-
-                // Thêm bài hát vào danh sách
-                $tracks[] = [
-                    'id' => $trackDetails->id,
-                    'name' => $trackDetails->name,
-                    'artist' => $trackDetails->artists[0]->name,
-                    'album' => $trackDetails->album->name,
-                    'url' => $trackDetails->external_urls->spotify,
-                    'image' => $imageUrl,
-                    'duration' => $trackDetails->duration_ms,
-                ];
+        foreach ($recommendedTracks->tracks as $track) {
+                    // Thêm bài hát vào danh sách
+                    $tracks[] = [
+                        'id' => $track->id,
+                        'name' => $track->name,
+                        'artist' => $track->artists[0]->name,
+                        'album' => $track->album->name,
+                        'url' => $track->external_urls->spotify,
+                        'image' => $track->album->images[0]->url,
+                        'duration' => $track->duration_ms,
+                    ];
             }
-        }
-
-        // Trộn ngẫu nhiên danh sách các bài hát và lấy 10 bài
-        shuffle($tracks);
-        $randomTracks = array_slice($tracks, 0, 10);
-
-        return $randomTracks;
+        return $tracks;
 
     } catch (Exception $e) {
         return ['error' => 'Failed to fetch random tracks: ' . $e->getMessage()];
     }
 }
+
 
     
     

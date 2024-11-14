@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
-function renderCircle($color, $percentage, $size, $strokeWidth) {
+function renderCircle($color, $percentage, $size, $strokeWidth, $id) {
     $radius = $size / 2 - 10;
     $circ = 2 * pi() * $radius - 20;
     $strokePct = ((100 - round($percentage)) * $circ) / 100;
     $strokeColor = $percentage > 0 ? $color : "none";
-
     echo '
     <circle
+        id="progresscirler-'.$id.'"
         r="' . $radius . '"
         cx="50%"
         cy="50%"
@@ -25,11 +25,11 @@ function renderProgressCircle($percentage, $isPlaying, $size, $color, $image) {
     $circle2Size = $size / 2 - 100;
 
     echo '
-    <div class="progress-circle flex">
+    <div id="progress-circle" class="progress-circle flex">
         <svg width="' . $size . '" height="' . $size . '">
             <g>';
-                renderCircle("#3B4F73", 100, $size, "0.4rem");
-                renderCircle($color, $percentage, $size, "0.6rem");
+                renderCircle("#3B4F73", 100, $size, "0.4rem", 1);
+                renderCircle($color, $percentage, $size, "0.6rem", 2);
     echo '
             </g>
             <defs>
