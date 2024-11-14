@@ -1,11 +1,8 @@
 <?php declare(strict_types=1);
 require_once'../../controllers/TrendingController.php';
 
-// $TrendingController = new TrendingController();
-// $songs = $TrendingController->index();
 $controller = new TrendingController();
 $songs = $controller->index();
-
 // Kiểm tra kết quả
 if (empty($songs)) {
     echo 'No songs found or an error occurred';
@@ -29,7 +26,7 @@ if (empty($songs)) {
                     <p class="playlist-subtitle"><?php echo $song['album']; ?> Songs</p>
                     <div class="playlist-fade">
                         <svg width="50" height="50" viewBox="0 0 24 24" fill="#E99D72">
-                            <circle cx="12" cy="12" r="10"/>
+                            <path xmlns="http://www.w3.org/2000/svg" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2ZM10,16.5v-9L16,12Z"/>
                         </svg>
                     </div>
                 </div>
@@ -43,6 +40,6 @@ if (empty($songs)) {
 <script>
     // Hàm JavaScript để điều hướng đến trang player
     function playPlaylist(id) {
-        window.location.href = '/player.php?id=' + id;
+        window.location.href = '/app/views/home/home.php?page=player&id=' + id;
     }
 </script>

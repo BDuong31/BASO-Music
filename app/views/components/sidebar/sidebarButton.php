@@ -1,4 +1,4 @@
-<?php declare(strict_types=1); 
+<?php declare(strict_types=1);
 
 function renderSidebarButton($title, $icon, $to) {
     // Lấy đường dẫn hiện tại từ PHP
@@ -7,8 +7,9 @@ function renderSidebarButton($title, $icon, $to) {
     // Sử dụng parse_url để chỉ lấy phần đường dẫn
     $path = parse_url($currentPath, PHP_URL_PATH);
     
-    // Kiểm tra nếu đường dẫn hiện tại khớp với $to
-    $isActive = ($path === $to);
+    // Đặt mặc định nút "Library" khi ở trang chủ "/"
+    $isActive = ($path === $to) || ($to === '/home/library' && $path === '/home');
+    
     $btnClass = $isActive ? "btn-body active" : "btn-body";
     ?>
     <a href="<?php echo $to; ?>">

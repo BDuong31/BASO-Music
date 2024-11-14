@@ -8,8 +8,9 @@ function renderWaveAnimation($isPlaying) {
     
     // Hiển thị các box
     echo '<div class="box-container flex">';
+    $i = 1;
     foreach ($boxes as $box) {
-        echo '<div class="' . $waveClass . ' ' . $box . '"></div>';
+        echo '<div id="waveAnimation_' . $i++ . '" class="' . $waveClass . ' ' . $box . '"></div>';
     }
     echo '</div>';
 }

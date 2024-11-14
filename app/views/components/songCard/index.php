@@ -6,7 +6,7 @@ require_once('albumInfo.php');
 function renderSongCard($album) {
     ?>
     <div class="songCard-body flex">
-        <?php renderAlbumImage($album['images'][0]['url'] ?? ''); ?>
+        <?php renderAlbumImage($album['images'] ?? ''); ?>
         <?php renderAlbumInfo($album); ?>
     </div>
     <?php

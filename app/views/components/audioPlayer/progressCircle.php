@@ -41,6 +41,7 @@ function renderProgressCircle($percentage, $isPlaying, $size, $color, $image) {
                 </clipPath>
             </defs>
             <image
+                id="circle-1" 
                 class="' . $activeClass . '"
                 x="30"
                 y="30"
@@ -50,6 +51,7 @@ function renderProgressCircle($percentage, $isPlaying, $size, $color, $image) {
                 clip-path="url(#myCircle)"
             />
             <image
+                id="circle-2" 
                 class="' . $activeClass . '"
                 x="100"
                 y="100"

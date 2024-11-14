@@ -29,6 +29,7 @@ class SpotifyService
         }
     }
 
+
     private function authenticateUser(): void
     {
         $options = [
@@ -61,18 +62,18 @@ class SpotifyService
             }
 
             $playlistId = '37i9dQZEVXbLdGSmz6xilI'; // Top 50 - Vietnam
-            $playlist = $this->api->getPlaylistTracks($playlistId, ['limit' => 10]);
+            $playlist = $this->api->getPlaylistTracks($playlistId, ['limit' => 50]);
 
             $songs = [];
             foreach ($playlist->items as $item) {
                 $track = $item->track;
                 $songs[] = [
-                    'id' => $track->id,
-                    'name' => $track->name,
-                    'artist' => $track->artists[0]->name,
-                    'album' => $track->album->name,
-                    'url' => $track->external_urls->spotify,
-                    'image' => $track->album->images[0]->url ?? null,
+                    'id' => $track->id ?? 'Unknown ID',
+                    'name' => $track->name ?? 'Unknown Name',
+                    'artist' => $track->artists[0]->name ?? 'Unknown Artist',
+                    'album' => $track->album->name ?? 'Unknown Album',
+                    'url' => $track->external_urls->spotify ?? '#',
+                    'image' => $track->album->images[0]->url ?? '/public/images/default.jpg',
                 ];
             }
 
@@ -81,5 +82,112 @@ class SpotifyService
             return ['error' => 'Failed to fetch trending songs: ' . $e->getMessage()];
         }
     }
+
+    public function getTrackById(string $trackID): object
+    {
+        try {
+            return $this->api->getTrack($trackID);
+        } catch (Exception $e) {
+            throw new Exception("Lỗi khi lấy thông tin bài hát: " . $e->getMessage());
+        }
+    }
+
+    public function getAlbumById(string $albumId): object {
+        try {
+            return $this->api->getAlbum($albumId);
+        } catch (Exception $e) {
+            throw new Exception("Lỗi khi lấy thông tin album: " . $e->getMessage());
+        }
+    }
+
+    public function getTrendingTracks(): array
+    {
+        try {
+            $newReleases = $this->api->getNewReleases(['limit' => 10, 'market' => 'VN']);
+            return $newReleases->albums->items ?? [];
+        } catch (Exception $e) {
+            throw new Exception("Lỗi khi lấy danh sách bài hát thịnh hành: " . $e->getMessage());
+        }
+    }
+ public function getRelatedArtists(string $artistID): array
+    {
+        try {
+            return $this->api->getArtistRelatedArtists($artistID)->artists ?? [];
+        } catch (Exception $e) {
+            return ['error' => 'Failed to fetch related artists: ' . $e->getMessage()];
+        }
+    }
+
+    // Lấy danh sách playlist nổi bật
+    public function getFeaturedPlaylists(): array
+    {
+        try {
+            $playlists = $this->api->getFeaturedPlaylists(['limit' => 20]);
+            return $playlists->playlists->items ?? [];
+        } catch (Exception $e) {
+            return ['error' => 'Failed to fetch featured playlists: ' . $e->getMessage()];
+        }
+    }
+
+    // Lấy danh sách album mới phát hành
+    public function getNewReleases(): array
+    {
+        try {
+            $newReleases = $this->api->getNewReleases(['limit' => 20, 'market' => 'VN']);
+            return $newReleases->albums->items ?? [];
+        } catch (Exception $e) {
+            return ['error' => 'Failed to fetch new releases: ' . $e->getMessage()];
+        }
+    }
+
+    public function getNextTracks(string $currentTrackId): array
+{
+    try {
+        // Giả sử chúng ta lấy 50 bài hát phổ biến hoặc mới nhất
+        $newReleases = $this->api->getNewReleases(['limit' => 50]);
+
+        $tracks = [];
+        foreach ($newReleases->albums->items as $album) {
+            // Lấy danh sách bài hát từ album hiện tại
+            $albumTracks = $this->api->getAlbumTracks($album->id, ['limit' => 10]);
+
+            foreach ($albumTracks->items as $track) {
+                // Lấy thông tin chi tiết của từng bài hát
+                $trackDetails = $this->api->getTrack($track->id);
+
+                // Kiểm tra và lấy hình ảnh từ bài hát (thay vì album)
+                $imageUrl = isset($trackDetails->album->images[0]->url) ? $trackDetails->album->images[0]->url : '/public/images/default.jpg';
+
+                // Chuyển đổi thời gian từ ms sang định dạng phút:giây
+
+                // Thêm bài hát vào danh sách
+                $tracks[] = [
+                    'id' => $trackDetails->id,
+                    'name' => $trackDetails->name,
+                    'artist' => $trackDetails->artists[0]->name,
+                    'album' => $trackDetails->album->name,
+                    'url' => $trackDetails->external_urls->spotify,
+                    'image' => $imageUrl,
+                    'duration' => $trackDetails->duration_ms,
+                ];
+            }
+        }
+
+        // Trộn ngẫu nhiên danh sách các bài hát và lấy 10 bài
+        shuffle($tracks);
+        $randomTracks = array_slice($tracks, 0, 10);
+
+        return $randomTracks;
+
+    } catch (Exception $e) {
+        return ['error' => 'Failed to fetch random tracks: ' . $e->getMessage()];
+    }
+}
+
+    
+    
+    
+    
+
 }
 ?>

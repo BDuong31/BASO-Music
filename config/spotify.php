@@ -17,6 +17,9 @@ $options = [
         'user-top-read',
         'playlist-read-private',
         'streaming',
+        'playlist-read-collaborative',
+        'user-read-playback-state',
+        'user-modify-playback-state'
     ],
 ];
 

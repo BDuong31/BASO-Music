@@ -7,8 +7,10 @@ function renderControls($isPlaying, $handleNext, $handlePrev) {
         <div class="action-btn flex" onclick="<?php echo $handlePrev; ?>">
             <?php echo getSkipBackIcon(); ?>
         </div>
-        <div class="<?php echo $isPlaying ? 'play-pause-btn flex active' : 'play-pause-btn flex'; ?>" onclick="<?php echo "togglePlay()"; ?>">
-            <?php echo $playPauseIcon; ?>
+        <div style="color: transparent;" class="<?php echo $isPlaying ? 'play-pause-btn flex active' : 'play-pause-btn flex'; ?>" onclick="playPause()" id="play-pause-btn">
+            <?php 
+                echo $playPauseIcon; 
+            ?>
         </div>
         <div class="action-btn flex" onclick="<?php echo $handleNext; ?>">
             <?php echo getSkipForwardIcon(); ?>

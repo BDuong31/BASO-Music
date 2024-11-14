@@ -589,6 +589,7 @@ a {
   color: #fff;
   cursor: pointer;
   transition: all 0.2s ease;
+  align-items: center;
 }
 
 .queue-item:hover {
@@ -948,4 +949,3 @@ a {
 .button_inner:hover{
   outline: 5px solid #1e2a3e;
 }
-

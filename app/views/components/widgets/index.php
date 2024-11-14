@@ -1,42 +1,52 @@
-<?php declare(strict_types=1); 
+<?php declare(strict_types=1);
 require_once('widgetCard.php');
-
-// Hàm để gọi API sử dụng cURL
-function fetchFromAPI($url, $token) {
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        "Authorization: Bearer $token"
-    ]);
-    $response = curl_exec($ch);
-    curl_close($ch);
-    return json_decode($response, true);
-}
+require_once __DIR__ . '/../../../services/SpotifyService.php';
 
 // Hàm để render Widgets
-function renderWidgets($artistID, $token) {
-    // Lấy nghệ sĩ tương tự
+function renderWidgets($artistID) {
+    // Khởi tạo dịch vụ SpotifyService
+    $spotifyService = new SpotifyService();
+
+    // Lấy danh sách nghệ sĩ tương tự
+    $similarArtists = $spotifyService->getRelatedArtists($artistID);
+    $featuredPlaylists = $spotifyService->getFeaturedPlaylists();
+    $newReleases = $spotifyService->getNewReleases();
+
+
+    // Kiểm tra và xử lý các dữ liệu trả về
     $similar = [];
-    if ($artistID) {
-        $similarResponse = fetchFromAPI("https://api.spotify.com/v1/artists/$artistID/related-artists", $token);
-        if (isset($similarResponse['artists'])) {
-            $similar = array_slice($similarResponse['artists'], 0, 3);
+    if (!empty($similarArtists)) {
+        foreach ($similarArtists as $artist) {
+            $similar[] = [
+                'name' => $artist->name ?? 'Unknown Artist',
+                'followers' => $artist->followers->total ?? 0,
+                'images' => isset($artist->images[2]) ? $artist->images[2]->url : '/public/images/default.jpg',
+
+            ];
         }
     }
 
-    // Lấy playlist nổi bật
     $featured = [];
-    $featuredResponse = fetchFromAPI("https://api.spotify.com/v1/browse/featured-playlists", $token);
-    if (isset($featuredResponse['playlists']['items'])) {
-        $featured = array_slice($featuredResponse['playlists']['items'], 0, 3);
+    if (!empty($featuredPlaylists)) {
+        foreach ($featuredPlaylists as $playlist) {
+            $featured[] = [
+                'name' => $playlist->name ?? 'Unknown Playlist',
+                'tracks' => $playlist->tracks->total?? 0,
+
+                'images' => $playlist->images[0]->url ?? '/public/images/default.jpg',
+            ];
+        }
     }
 
-    // Lấy album mới phát hành
     $newRelease = [];
-    $newReleaseResponse = fetchFromAPI("https://api.spotify.com/v1/browse/new-releases", $token);
-    if (isset($newReleaseResponse['albums']['items'])) {
-        $newRelease = array_slice($newReleaseResponse['albums']['items'], 0, 3);
+    if (!empty($newReleases)) {
+        foreach ($newReleases as $album) {
+            $newRelease[] = [
+                'name' => $album->name ?? 'Unknown Album',
+                'artists' => $album->artists[0]->name,
+                'images' => $album->images[2]->url ?? '/public/images/default.jpg',
+                ];
+        }
     }
 
     // Render các thẻ WidgetCard
@@ -46,4 +56,3 @@ function renderWidgets($artistID, $token) {
     renderWidgetCard("New Releases", [], [], $newRelease);
     echo '</div>';
 }
-?>

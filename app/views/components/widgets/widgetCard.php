@@ -5,32 +5,33 @@ require_once('widgetEntry.php');
 function renderWidgetCard($title, $similar = [], $featured = [], $newRelease = []) {
     echo '<div class="widgetcard-body">';
     echo '<p class="widget-title">' . $title . '</p>';
-
+    echo '<div style="overflow: auto; height: inherit;">';
     if (!empty($similar)) {
         foreach ($similar as $artist) {
             renderWidgetEntry(
                 $artist['name'],
-                $artist['followers']['total'] . ' Followers',
-                $artist['images'][2]['url']
+                $artist['followers']. ' Followers',
+                $artist['images']
             );
         }
     } elseif (!empty($featured)) {
         foreach ($featured as $playlist) {
             renderWidgetEntry(
                 $playlist['name'],
-                $playlist['tracks']['total'] . ' Songs',
-                $playlist['images'][0]['url']
+                $playlist['tracks'] . ' Songs',
+                $playlist['images']
             );
         }
     } elseif (!empty($newRelease)) {
         foreach ($newRelease as $album) {
             renderWidgetEntry(
                 $album['name'],
-                $album['artists'][0]['name'],
-                $album['images'][2]['url']
+                $album['artists'],
+                $album['images']
             );
         }
     }
+    echo '</div>';
 
     // Nút mũi tên điều hướng
     echo '
