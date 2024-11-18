@@ -1,5 +1,5 @@
 <?php declare(strict_types=1); 
-// session_start();
+session_start();
 // include_once '../../controllers/AuthController.php';
 // $authController = new AuthController();
 // $data = json_decode(file_get_contents("php://input"), true) ?? $_POST;
@@ -137,8 +137,12 @@
         .then(result => {
             // Kiểm tra phản hồi từ API
             if (result.status === '00') {
-                //showResult(result.user);
-                window.location.href = 'home';
+                if(result.user.role_id === 0){
+                    window.location.href = 'home';
+                }
+                if (result.user.role_id === 1){
+                    window.location.href = 'admin';
+                }
             } else {
                 showResult(result.message || 'Đăng nhập thất bại', 'red');
             }

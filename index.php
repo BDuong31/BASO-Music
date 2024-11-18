@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 session_start();
 if (empty($_SESSION['username'])){
-    header('Location: /app/views/auth/login.php');
+    header('Location: login');
     exit();
 } else {
-    header('Location: /app/views/home/home.php');
+    header('Location: home');   
     exit();
 }   
 ?>

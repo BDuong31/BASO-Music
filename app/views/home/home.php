@@ -3,15 +3,20 @@ session_start();
 require_once('../components/sidebar/index.php');
 
 // Kiểm tra xem token đã có trong session chưa
-// if (!isset($_SESSION['token'])) {
-//     header("Location: login.php");
-//     exit();
-// }
+if (!isset($_SESSION['user'])) {
+     header("Location: login");
+     exit();
+}
+
+if ($_SESSION['user']['role_id'] == 1){
+    header("Location: admin");
+    exit();
+}
 
 //$token = $_SESSION['token'];
 
 // Lấy trang hiện tại từ URL
-$page = $_GET['page'] ?? 'library';
+$page = $_GET['page'] ?? 'player';
 ?>
 
 <!DOCTYPE html>
@@ -25,9 +30,14 @@ $page = $_GET['page'] ?? 'library';
 </head>
 
 <body>
+    <div id="loading">
+      <div id="loading-center">
+            <div id="loading-circle"></div>
+      </div>
+   </div>
     <!-- Sidebar -->
     <div class="main-body">
-        <?php renderSidebar($token); ?>
+        <?php renderSidebar(); ?>
         <?php
             switch ($page) {
                 case 'trending':
@@ -39,8 +49,8 @@ $page = $_GET['page'] ?? 'library';
                 case 'favorites':
                     include('../favorites/favorites.php');
                     break;
-                case 'library':
-                    include('../library/library.php');
+                case 'history':
+                    include('../history/history.php');
                     break;
                 case 'account':
                     include('../account/profile.php');
@@ -49,6 +59,16 @@ $page = $_GET['page'] ?? 'library';
             }
         ?>
     </div>
+    <script>
+        // Wait until the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+                    // Hide the loader
+                    const loader = document.getElementById('loading');
+                    if (loader) {
+                        loader.style.display = 'none';
+                    }
+                });
+    </script>
 </body>
 
 </html>

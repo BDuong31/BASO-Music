@@ -9,6 +9,12 @@ RewriteRule ^callback$ app/services/callback.php [L]
 # Chuy·ªÉn h∆∞·ªõng /api/login v√† /api/register t·ªõi api.php
 RewriteRule ^api/login$ config/api.php?action=login [L]
 RewriteRule ^api/register$ config/api.php?action=register [L]
+RewriteRule ^api/update-profile$ config/api.php?action=update-profile [L]
+RewriteRule ^api/update-avatar$ config/api.php?action=update-avatar [L]
+RewriteRule ^api/add-history$ config/api.php?action=add-history [L]
+RewriteRule ^api/add-favorite$ config/api.php?action=add-favorite [L]
+RewriteRule ^api/delete-favorite$ config/api.php?action=delete-favorite [L]
+
 
 # URL c√°c c√°c page
 RewriteRule ^login$ app/views/auth/login.php [L]
@@ -16,13 +22,14 @@ RewriteRule ^register$ app/views/auth/register.php [L]
 RewriteRule ^logout$ app/views/auth/logout.php [L]
 
 # URL c·c trang chÌnh
-RewriteRule ^home$ app/views/home/home.php?page=library [L]
+RewriteRule ^home$ app/views/home/home.php?page=player [L]
+RewriteRule ^admin$ app/views/admin/dashboard.php [L]
 
 # Chuy?n h??ng c·c ph?n kh·c nhau c?a trang home
 RewriteRule ^home/account$ app/views/home/home.php?page=account [L]
 RewriteRule ^home/player$ app/views/home/home.php?page=player [L]
 RewriteRule ^home/trending$ app/views/home/home.php?page=trending [L]
 RewriteRule ^home/favorites$ app/views/home/home.php?page=favorites [L]
-RewriteRule ^home/library$ app/views/home/home.php?page=library [L]
+RewriteRule ^home/history$ app/views/home/home.php?page=history [L]
 
 

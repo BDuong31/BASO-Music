@@ -1,19 +1,17 @@
 <?php declare(strict_types=1); 
-declare(strict_types=1);
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 require_once(__DIR__ . '/../components/audioPlayer/index.php');
 require_once(__DIR__ . '/../components/widgets/index.php');
 require_once(__DIR__ . '/../components/songCard/index.php');
 require_once(__DIR__ . '/../components/queue/index.php');
 require_once(__DIR__ . '/../../controllers/SongController.php');
+
 ?>
 <link rel="stylesheet" href="/public/css/home.css">
 <div class="screen-container flex">
     <div class="left-player-body">
         <!-- audioPlayer Start-->
         <?php
+            $userId = $_SESSION['user']['id'];
             $id = $_GET['id'] ?? '';
             if ($id != '') {
                 $songController = new SongController();
@@ -40,7 +38,7 @@ require_once(__DIR__ . '/../../controllers/SongController.php');
                 ];
                 
                 $total = [
-                    ['preview_url' => 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3']
+                    ['preview_url' => '/public/ys-bao.m4a']
                 ];
             }
             renderAudioPlayer($currentTrack, 0, $total);
@@ -57,7 +55,6 @@ require_once(__DIR__ . '/../../controllers/SongController.php');
             } else {
                 echo "Function renderWidgets not found.";
             }
-
         ?>
     </div>
 
@@ -130,3 +127,36 @@ require_once(__DIR__ . '/../../controllers/SongController.php');
         ?>
     </div>
 </div>
+<script>
+        data = {
+            "userId": <?php echo $_SESSION['user']['id'] ?>,
+            "trackId": "<?php echo $_GET['id'] ?>"
+        }
+        fetch('http://basomusic.local/api/add-history', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            // Kiểm tra nếu response không phải JSON
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Chuyển đổi sang JSON nếu hợp lệ
+        })
+        .then(result => {
+            // Xử lý kết quả trả về từ API
+            if (result.status === '00') {
+                console.log('Thêm vào lịch sử thành công');
+            } else {
+                console.error(result.message || 'Cập nhật thất bại');
+            }
+        })
+        .catch(error => {
+            // Log lỗi chi tiết
+            console.error('Error during fetch:', error);
+        });
+
+</script>

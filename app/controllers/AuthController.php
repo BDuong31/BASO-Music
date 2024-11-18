@@ -17,7 +17,7 @@ class AuthController {
             $data['email'],
             $data['birthday'],
             $data['fullname'],
-            $data['sex']
+            $data['gender']
         );
         echo json_encode($response);
         return $response;
@@ -34,10 +34,18 @@ class AuthController {
     public function updateProfile($data) {
         $response = $this->userService->updateProfile(
             $data['id'],
+            $data['username'],
+            $data['email'],
             $data['fullname'],
             $data['birthday'],
-            $data['profile_picture'] ?? null
+            $data['sex']
         );
+        echo json_encode($response);
+        return $response;
+    }
+
+    public function updateYourAvatar($data, $file){
+        $response = $this->userService->updateAvatar($data, $file);
         echo json_encode($response);
         return $response;
     }

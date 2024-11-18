@@ -10,7 +10,6 @@ class User {
         $this->conn = $conn;
     }
 
-    // Tạo người dùng mới
     public function createUser($username, $password, $email, $birthday, $fullname, $sex) {
         $role = 0;
         $passwordHash = password_hash($password, PASSWORD_BCRYPT);
@@ -21,7 +20,6 @@ class User {
         return $result;
     }
 
-    // Lấy thông tin người dùng bằng username
     public function getUserByUsername($username) {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->bind_param("s", $username);
@@ -30,7 +28,6 @@ class User {
         return $result->fetch_assoc();
     }
 
-    // Lấy thông tin người dùng bằng email
     public function getUserByEmail($email) {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
@@ -39,7 +36,6 @@ class User {
         return $result->fetch_assoc();
     }
 
-    // Đăng nhập
     public function login($identifier, $password) {
         $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ? OR username = ?");
         $stmt->bind_param("ss", $identifier, $identifier);
@@ -47,23 +43,39 @@ class User {
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
         if ($user && password_verify($password, $user['password'])) {
+            unset($user['password']);
             return $user;
         }
         return null;
     }
 
-    // Cập nhật hồ sơ người dùng
-    public function updateUserProfile($id, $fullname, $birthday, $profilePicture = null) {
-        if ($profilePicture) {
-            $stmt = $this->conn->prepare("UPDATE users SET fullname = ?, birthday = ?, profile_picture = ? WHERE id = ?");
-            $stmt->bind_param("sssi", $fullname, $birthday, $profilePicture, $id);
-        } else {
-            $stmt = $this->conn->prepare("UPDATE users SET fullname = ?, birthday = ? WHERE id = ?");
-            $stmt->bind_param("ssi", $fullname, $birthday, $id);
-        }
+    public function updateUserProfile($id, $username, $email, $fullname, $birthday, $sex) {
+        $stmt = $this->conn->prepare("UPDATE users SET username = ?, email = ?, fullname = ?, birthday = ?, sex = ? WHERE id = ?");
+        $stmt->bind_param("sssssi", $username, $email, $fullname, $birthday, $sex, $id);
+        $result = $stmt->execute();
+        $stmt->close();
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+        return $user;
+    }
+
+    public function updateYourAvatar($userId, $avatarBase64){
+        $stmt = $this->conn->prepare("UPDATE users SET img = ? WHERE id = ?");
+        $stmt->bind_param("si", $avatarBase64, $userId);
         $result = $stmt->execute();
         $stmt->close();
         return $result;
+    }
+
+    public function getUser($userId){
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE id =?");
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
     }
 }
 ?>

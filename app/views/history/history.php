@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
-require_once(__DIR__ . '/../../controllers/FavoriteController.php');
+require_once __DIR__ . '/../../controllers/HistoryController.php';
 require_once(__DIR__ . '/../../controllers/SongController.php');
 
 
-// Lấy danh sách bài hát đã nghe gần đây
-$favoriteController = new FavoriteController();
-$tracks = $favoriteController->getFavorites($_SESSION['user']['id']);
+
+$historyController = new HistoryController();
+$tracks = $historyController->getHistory($_SESSION['user']['id']);
 $playlists = [];
 
 // Duyệt qua từng track và lấy thông tin bài hát
@@ -48,7 +48,7 @@ foreach ($tracks['tracks'] as $track) {
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <h1 style="font-size: 45px; color: #c4d0e3">No history list found</h1>
+            <h1 style="font-size: 45px; color: #c4d0e3">No favorites list found</h1>
         <?php endif; ?>
     </div>
 </div>
