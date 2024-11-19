@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 session_start();
-if (empty($_SESSION['username'])){
+if (empty($_SESSION['user'])){
     header('Location: login');
     exit();
 } else {

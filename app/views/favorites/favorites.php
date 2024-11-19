@@ -56,6 +56,6 @@ foreach ($tracks['tracks'] as $track) {
 <script>
     // Hàm JavaScript để điều hướng đến trang player
     function playPlaylist(id) {
-        window.location.href = '/player.php?id=' + id;
+        window.location.href = '/app/views/home/home.php?page=player&id=' + id;
     }
 </script>

@@ -1235,6 +1235,7 @@ class SpotifyWebAPI
         return $this->lastResponse['body'];
     }
 
+
     public function seek(array|object $options): bool
     {
         $options = http_build_query($options, '', '&');

@@ -114,8 +114,8 @@ require_once(__DIR__ . '/../../controllers/SongController.php');
                 ];
             }
             echo '<script>
-            function setCurrentIndex(index) {
-                console.log("Current index:", index);
+            function setCurrentIndex(id) {
+                window.location.href = "/app/views/home/home.php?page=player&id=" + id;
             }
             </script>';
 

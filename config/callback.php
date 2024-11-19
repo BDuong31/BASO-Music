@@ -8,8 +8,8 @@ require_once __DIR__ . '/../spotifyAPI/SpotifyWebAPIException.php';
 session_start();
 
 $session = new Session(
-    '738e89a131d74ec593c1eb89effe3a44',
-    'a55158c4160f4be5b60e7f7a5aa4518c',
+    '67d1e412d7c94907a2c140fa179a6672',
+    'a7a5e2669cb042f9b67f2578f8dd9f21',
     'http://basomusic.local/config/callback.php'
 );
 

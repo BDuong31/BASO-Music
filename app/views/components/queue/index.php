@@ -15,13 +15,14 @@ function renderQueue($tracks) { ?>
             <div class="queue-list">
                 <?php
                 foreach ($tracks as $index => $track) {
+                    $trackId = $track['id']?? 'Unknown ID';
                     $trackName = $track['name'] ?? 'Unknown Track';
                     $trackImage = $track['image'] ?? '/public/images/logo.jpg';
                     $trackDuration = $track['duration'] ?? '';
                     
 
                     ?>
-                    <div class="queue-item flex" onclick="setCurrentIndex(<?php echo $index; ?>)">
+                    <div class="queue-item flex" onclick="setCurrentIndex(<?php echo $trackId; ?>)">
                         <img src="<?php echo htmlspecialchars($trackImage); ?>" width="24px">
                         <p class="track-name"><?php echo htmlspecialchars($trackName); ?></p>
                         <p class="track-duration"><?php echo htmlspecialchars($trackDuration == '' ? '' : convertDuration($trackDuration)); ?></p>

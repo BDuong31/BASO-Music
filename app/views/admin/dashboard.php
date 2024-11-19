@@ -1,16 +1,26 @@
 <?php declare(strict_types=1);
+require_once __DIR__ . '/../../controllers/AdminController.php';
+require_once __DIR__ . '/../../controllers/Admin-C.php';
 session_start();
 //Kiểm tra xem token đã có trong session chưa
 if (!isset($_SESSION['user'])) {
-   header("Location: login");
+   header("Location: /login");
    exit();
 }
 
 if ($_SESSION['user']['role_id'] == 0){
-   header("Location: home");
+   header("Location: /home");
    exit();
 }
+$adminController = new AdminController();
+$totalAlbums = $adminController->getTotalAlbums();
+$artists = $adminController->getArtist();
+$songs = $adminController->getSongs();
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
 <!doctype html>
 <html lang="en">
 <head>
@@ -638,8 +648,9 @@ if ($_SESSION['user']['role_id'] == 0){
 </head>
 <body>
    <!-- loader Start -->
-   <div id="loading">
-      <div id="loading-center">
+   <div id="loading-1">
+      <div id="loading-center-1">
+          <div id="loading-circle-1"></div>
       </div>
    </div>
    <!-- loader END -->
@@ -651,36 +662,18 @@ if ($_SESSION['user']['role_id'] == 0){
             <nav class="navbar navbar-expand-lg navbar-light p-0">
                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav ml-auto navbar-list">
-                     <li class="nav-item nav-icon">
-                        <div class="iq-search-bar">
-                           <form action="#" class="searchbox">
-                              <input type="text" class="text search-input" placeholder="Search Here..">
-                              <a class="search-link" href="#"><i class="ri-search-line text-black"></i></a>
-                           </form>
-                        </div>
-                     </li>
-                     <li class="nav-item nav-icon search-content">
-                        <a href="#" class="search-toggle iq-waves-effect text-gray rounded"><span class="ripple rippleEffect " ></span>
-                           <i class="ri-search-line text-black"></i>
-                        </a>
-                        <form action="#" class="search-box p-0">
-                           <input type="text" class="text search-input" placeholder="Type here to search...">
-                           <a class="search-link" href="#"><i class="ri-search-line text-black"></i></a>
-                        </form>
-                     </li>
                      <li class="line-height pt-3">
                         <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
-                           <img src="/public/images/user/11.png" class="img-fluid rounded-circle" alt="user">
+                           <img src="<?php echo $_SESSION['user']['img'] ?>" class="img-fluid rounded-circle" alt="user">
                         </a>
                         <div class="iq-sub-dropdown iq-user-dropdown">
                            <div class="iq-card shadow-none m-0">
                               <div class="iq-card-body p-0 ">
                                  <div class="bg-primary p-3">
-                                    <h5 class="mb-0 text-white line-height">Hello Barry Tech</h5>
-                                    <span class="text-white font-size-12">Available</span>
+                                    <h5 class="mb-0 text-white line-height">Hello <?php echo $_SESSION['user']['fullname'] ?></h5>
                                  </div>
                                  <div class="d-inline-block w-100 text-center p-3">
-                                    <a class="bg-primary iq-sign-btn" href="sign-in.html" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
+                                    <a class="bg-primary iq-sign-btn" href="logout" role="button">Sign out<i class="ri-login-box-line ml-2"></i></a>
                                  </div>
                               </div>
                            </div>
@@ -696,123 +689,121 @@ if ($_SESSION['user']['role_id'] == 0){
       <div id="content-page" class="content-page">
          <div class="container-fluid">
             <div class="row"> 
-               <div class="col-sm-6 col-md-6 col-lg-3">
+               <div class="col-sm-6 col-md-6 col-lg-4">
                   <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
                      <div class="iq-card-body">
                         <div class="d-flex align-items-center justify-content-between">
-                           <h6>Music Artist</h6>
+                           <h6>Nghệ sĩ</h6>
                            <span class="iq-icon"><i class="ri-information-fill"></i></span>
                         </div>
                         <div class="iq-customer-box d-flex align-items-center justify-content-between mt-3">
                            <div class="iq-map text-primary font-size-32"><i class="ri-bar-chart-grouped-line"></i></div>
                            <div class="d-flex align-items-center">
-                              <h2>352</h2>
+                              <h2><?php echo $artists['total_artists']; ?></h2>
                               <div class="rounded-circle iq-card-icon iq-bg-primary ml-3"> <i class="ri-inbox-fill"></i></div>
                            </div>
                         </div>
                      </div>
                   </div>
                </div>
-               <div class="col-sm-6 col-md-6 col-lg-3">
+               <div class="col-sm-6 col-md-6 col-lg-4">
                   <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
                      <div class="iq-card-body">
                         <div class="d-flex align-items-center justify-content-between">
-                           <h6>Music Album</h6>
+                           <h6>Album</h6>
                            <span class="iq-icon"><i class="ri-information-fill"></i></span>
                         </div>
                         <div class="iq-customer-box d-flex align-items-center justify-content-between mt-3">
                            <div class="iq-map text-success font-size-32"><i class="ri-bar-chart-grouped-line"></i></div>
                            <div class="d-flex align-items-center">
-                              <h2>987</h2>
+                              <h2><?php echo $totalAlbums; ?></h2>
                               <div class="rounded-circle iq-card-icon iq-bg-success ml-3"><i class="ri-price-tag-3-line"></i></div>
                            </div>
                         </div>
                      </div>
                   </div>
                </div>
-               <div class="col-sm-6 col-md-6 col-lg-3">
+               <div class="col-sm-6 col-md-6 col-lg-4">
                   <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
                      <div class="iq-card-body">
                         <div class="d-flex align-items-center justify-content-between">
-                           <h6>Music Followers</h6>
+                           <h6>Người dùng</h6>
                            <span class="iq-icon"><i class="ri-information-fill"></i></span>
                         </div>
                         <div class="iq-customer-box d-flex align-items-center justify-content-between mt-3">
                            <div class="iq-map text-danger font-size-32"><i class="ri-bar-chart-grouped-line"></i></div>
                            <div class="d-flex align-items-center">
-                              <h2>2.5K</h2>
+                              <h2>
+                                  <?php
+                                    require_once __DIR__ . '/../../controllers/Admin-C.php';
+                                    $adminC = new Admin_C();
+                                    echo $adminC->getTotalUser();
+                                  ?>
+                              </h2>
                               <div class="rounded-circle iq-card-icon iq-bg-danger ml-3"><i class="ri-radar-line"></i></div>
                            </div>
                         </div>
                      </div>
                   </div>
                </div>
-               <div class="col-lg-8">
-                  <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
-                     <div class="iq-card-body">
-                        <div id="progress-chart-2"></div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-4">
+               <div class="col-lg-6">
                   <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
                      <div class="iq-card-header d-flex justify-content-between">
                         <div class="iq-header-title">
-                           <h4 class="card-title">Best artist</h4>
-                        </div>
-                        <div class="iq-card-header-toolbar d-flex align-items-center">
-                           <div class="dropdown">
-                              <span class="dropdown-toggle" id="dropdownMenuButton1" data-toggle="dropdown">
-                              <i class="ri-more-fill"></i>
-                              </span>
-                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1" style="">
-                                 <a class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>View</a>
-                                 <a class="dropdown-item" href="#"><i class="ri-delete-bin-6-fill mr-2"></i>Delete</a>
-                                 <a class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>Edit</a>
-                                 <a class="dropdown-item" href="#"><i class="ri-printer-fill mr-2"></i>Print</a>
-                                 <a class="dropdown-item" href="#"><i class="ri-file-download-fill mr-2"></i>Download</a>
-                              </div>
-                           </div>
+                           <h4 class="card-title">Người dùng</h4>
                         </div>
                      </div>
-                     <div class="iq-card-body">
+                     <div style="height: 312px; overflow: auto;" class="iq-card-body">
                         <ul class="list-inline p-0 m-0">
+                          <?php
+                              require_once __DIR__ . '/../../controllers/Admin-C.php';
+                              $adminC = new Admin_C();
+                              $user = $adminC->getUser();
+                              foreach ($user as $key => $value) {
+                          ?>
                            <li class="d-flex mb-3 align-items-center p-3 sell-list border border-primary rounded">
                               <div class="user-img img-fluid">
-                                 <img src="/public/images/user/01.jpg" alt="story-img" class="img-fluid rounded-circle avatar-40">
+                                 <img src="<?php echo $value['img'] ?>" alt="story-img" class="img-fluid rounded-circle avatar-40">
                               </div>
                               <div class="media-support-info ml-3">
-                                 <h6>Pete Sariya</h6>
-                                 <p class="mb-0 font-size-12">24 jan, 2020</p>
-                              </div>
-                              <div class="iq-card-header-toolbar d-flex align-items-center">
-                                 <div class="badge badge-pill badge-primary">157</div>
+                                 <h6><?php echo $value['fullname'] ?></h6>
+                                 <p class="mb-0 font-size-12"><?php echo $value['created_at'] ?></p>
                               </div>
                            </li>
-                           <li class="d-flex mb-3 align-items-center p-3 sell-list border border-success rounded">
+                          <?php
+                              }
+                          ?>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-lg-6">
+                  <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                     <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                           <h4 class="card-title">Ca sĩ</h4>
+                        </div>
+                     </div>
+                     <div style="height: 312px; overflow: auto;" class="iq-card-body">
+                        <ul class="list-inline p-0 m-0">
+                           <?php                        
+                              foreach ($artists['artist_details'] as $key => $value) {
+                          ?>
+                           <li class="d-flex mb-3 align-items-center p-3 sell-list border border-primary rounded">
                               <div class="user-img img-fluid">
-                                 <img src="/public/images/user/02.jpg" alt="story-img" class="img-fluid rounded-circle avatar-40">
+                                 <img src="<?php echo $value['image'] ?>" alt="story-img" class="img-fluid rounded-circle avatar-40">
                               </div>
                               <div class="media-support-info ml-3">
-                                 <h6>Anna Mull</h6>
-                                 <p class="mb-0 font-size-12">15 feb, 2020</p>
+                                 <h6><?php echo $value['name'] ?></h6>
+                                 <p class="mb-0 font-size-12">Ca Sĩ</p>
                               </div>
                               <div class="iq-card-header-toolbar d-flex align-items-center">
-                                 <div class="badge badge-pill badge-success">280</div>
+                                 <div class="badge badge-pill badge-primary"><?php echo $value['popularity'] ?></div>
                               </div>
                            </li>
-                           <li class="d-flex align-items-center p-3 sell-list border border-danger rounded">
-                              <div class="user-img img-fluid">
-                                 <img src="/public/images/user/03.jpg" alt="story-img" class="img-fluid rounded-circle avatar-40">
-                              </div>
-                              <div class="media-support-info ml-3">
-                                 <h6>Alex john</h6>
-                                 <p class="mb-0 font-size-12">05 March, 2020</p>
-                              </div>
-                              <div class="iq-card-header-toolbar d-flex align-items-center">
-                                 <div class="badge badge-pill badge-danger">200</div>
-                              </div>
-                           </li>
+                          <?php
+                              }
+                          ?>
                         </ul>
                      </div>
                   </div>
@@ -822,9 +813,6 @@ if ($_SESSION['user']['role_id'] == 0){
                      <div class="iq-card-header d-flex justify-content-between">
                         <div class="iq-header-title">
                            <h4 class="card-title">Song Table</h4>
-                        </div>
-                        <div class="iq-card-header-toolbar d-flex align-items-center">
-                           <button class="btn btn-outline-primary">View All</button>
                         </div>
                      </div>
                      <div class="iq-card-body rec-pat">
@@ -838,72 +826,24 @@ if ($_SESSION['user']['role_id'] == 0){
                                     <th>Date</th>
                                  </tr>
                               </thead>
-                              <tbody>
+                              <tbody style="height: 295px; overflow: auto">
+                              <?php 
+                                  $i=1;
+                                  foreach ($songs as $key => $value){ 
+                              ?>
                                  <tr>
-                                    <td>1</td>
-                                    <td>Life Is Good</td>
+                                    <td><?= $i++ ?></td>
+                                    <td><?= htmlspecialchars($value['track_name']) ?></td>
                                     <td>
                                        <div class="media align-items-center">
-                                          <img src="/public/images/user/01.jpg" class="img-fluid avatar-35 rounded" alt="image">
                                           <div class="media-body ml-3">
-                                             <p class="mb-0">Pete Sariya</p>
+                                             <p class="mb-0"><?= htmlspecialchars($value['artist_name']) ?></p>
                                           </div>
                                        </div>
                                     </td>
-                                    <td>20/08/2020</td>
+                                    <td><?= htmlspecialchars($value['release_date']) ?></td>
                                  </tr>
-                                 <tr>
-                                    <td>2</td>
-                                    <td>Harry Styles</td>
-                                    <td>
-                                       <div class="media align-items-center">
-                                          <img src="/public/images/user/02.jpg" class="img-fluid avatar-35 rounded" alt="image">
-                                          <div class="media-body ml-3">
-                                             <p class="mb-0">Cliff Hanger</p>
-                                          </div>
-                                       </div>
-                                    </td>
-                                    <td>20/08/2020</td>
-                                 </tr>
-                                 <tr>
-                                    <td>3</td>
-                                    <td>Die From A..</td>
-                                    <td>
-                                       <div class="media align-items-center">
-                                          <img src="/public/images/user/03.jpg" class="img-fluid avatar-35 rounded" alt="image">
-                                          <div class="media-body ml-3">
-                                             <p class="mb-0">Terry Aki</p>
-                                          </div>
-                                       </div>
-                                    </td>
-                                    <td>20/08/2020</td>
-                                 </tr>
-                                 <tr>
-                                    <td>4</td>
-                                    <td>Life's A Mess</td>
-                                    <td>
-                                       <div class="media align-items-center">
-                                          <img src="/public/images/user/04.jpg" class="img-fluid avatar-35 rounded" alt="image">
-                                          <div class="media-body ml-3">
-                                             <p class="mb-0">Rock lai</p>
-                                          </div>
-                                       </div>
-                                    </td>
-                                    <td>20/08/2020</td>
-                                 </tr>
-                                 <tr>
-                                    <td>5</td>
-                                    <td>Rags2Riches</td>
-                                    <td>
-                                       <div class="media align-items-center">
-                                          <img src="/public/images/user/05.jpg" class="img-fluid avatar-35 rounded" alt="image">
-                                          <div class="media-body ml-3">
-                                             <p class="mb-0">Anna Mull</p>
-                                          </div>
-                                       </div>
-                                    </td>
-                                    <td>20/08/2020</td>
-                                 </tr>
+                              <?php } ?>
                               </tbody>
                            </table>
                         </div>
@@ -914,6 +854,16 @@ if ($_SESSION['user']['role_id'] == 0){
          </div>
       </div>
    </div>
+   <script>
+        // Wait until the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+                    // Hide the loader
+                const loader = document.getElementById('loading-1');
+                if (loader) {
+                      loader.style.display = 'none';
+                  }
+              });
+    </script>
    <!-- Wrapper END -->
    <!-- color-customizer -->
    <!-- color-customizer END -->
