@@ -8,7 +8,7 @@ function renderSidebarButton($title, $icon, $to) {
     $path = parse_url($currentPath, PHP_URL_PATH);
     
     // Đặt mặc định nút "Library" khi ở trang chủ "/"
-    $isActive = ($path === $to) || ($to === '/home/library' && $path === '/home');
+    $isActive = ($path === $to) || ($to === '/home/player' && $path === '/home');
     
     $btnClass = $isActive ? "btn-body active" : "btn-body";
     ?>

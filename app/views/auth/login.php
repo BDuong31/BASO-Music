@@ -139,10 +139,10 @@ session_start();
             // Kiểm tra phản hồi từ API
             if (result.status === '00') {
                 if(result.user.role_id === 0){
-                    window.location.href = 'home';
+                    window.location.href = 'config/spotify.php';
                 }
                 if (result.user.role_id === 1){
-                    window.location.href = 'admin';
+                    window.location.href = 'config/spotify.php';
                 }
             } else {
                 showResult(result.message || 'Đăng nhập thất bại', 'red');

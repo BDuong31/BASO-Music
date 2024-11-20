@@ -23,7 +23,7 @@ if (empty($songs)) {
                         <img src="/public/images/default.jpg" class="playlist-image" alt="Default-Art">
                     <?php endif; ?>
                     <p class="playlist-title"><?php echo htmlspecialchars($song['name']); ?></p>
-                    <p class="playlist-subtitle"><?php echo $song['album']; ?> Songs</p>
+                   <p class="playlist-subtitle"><?php echo $song['album']; ?> Songs</p>
                     <div class="playlist-fade" onclick="playPlaylist('<?php echo $song['id']; ?>')">
                         <svg width="50" height="50" viewBox="0 0 24 24" fill="#E99D72">
                             <path xmlns="http://www.w3.org/2000/svg" d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2ZM10,16.5v-9L16,12Z"/>

@@ -816,7 +816,7 @@ $songs = $adminController->getSongs();
                         </div>
                      </div>
                      <div class="iq-card-body rec-pat">
-                        <div class="table-responsive">
+                        <div style="height: 295px; overflow: auto" class="table-responsive">
                            <table class="table table-striped mb-0 table-borderless">
                               <thead>
                                  <tr>
@@ -826,7 +826,7 @@ $songs = $adminController->getSongs();
                                     <th>Date</th>
                                  </tr>
                               </thead>
-                              <tbody style="height: 295px; overflow: auto">
+                              <tbody >
                               <?php 
                                   $i=1;
                                   foreach ($songs as $key => $value){ 

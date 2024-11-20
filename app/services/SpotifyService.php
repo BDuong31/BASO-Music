@@ -183,7 +183,7 @@ public function getTotalAlbums(): int
     try {
         $totalAlbums = 0;
 
-        foreach (range('A', 'B') as $char) {
+        foreach (range('A', 'A') as $char) {
             // Gửi yêu cầu tới Spotify API để lấy tổng số album bắt đầu với ký tự $char
             $result = $this->api->search($char, 'album', ['limit' => 50]);
 
@@ -208,7 +208,7 @@ public function getTotalAlbums(): int
             $allArtistsDetails = [];
 
             // Lặp qua từng ký tự từ A-Z
-            foreach (range('A', 'B') as $char) {
+            foreach (range('A', 'A') as $char) {
                 // Gửi yêu cầu tới Spotify API để lấy danh sách nghệ sĩ
                 $result = $this->api->search($char, 'artist', ['limit' => 50]); // Lấy tối đa 50 nghệ sĩ đầu tiên
 
@@ -254,7 +254,7 @@ public function getTotalAlbums(): int
         $allTracksDetails = [];
 
         // Lặp qua từng ký tự từ A-Z
-        foreach (range('A', 'B') as $char) {
+        foreach (range('A', 'A') as $char) {
             // Gửi yêu cầu tới Spotify API để lấy danh sách bài hát
             $result = $this->api->search($char, 'track', ['limit' => 50]); // Lấy tối đa 50 bài hát đầu tiên
 
